@@ -36,6 +36,7 @@ const useGetColor = ({ query = "" }) => {
     if (!query.length) {
       setData(null);
       setLoading(false);
+      return;
     }
     queryPromise(query).then((response) => {
       setData(response);
