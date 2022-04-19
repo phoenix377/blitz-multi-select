@@ -1,5 +1,8 @@
 # Blitz Frontend Takehome Assessment
 
+> Download the repo as a zip file, make your changes, then submit the test as a zip file.
+> Don't open PRs, Don't Fork the test.
+
 This is an exercise that will give you a glimpse of the typical front-end challenges that we tackle at Blitz!
 
 You will be recreating a multiselect dropdown component, packed with several features which will be explained in detail in the acceptance criteria.
