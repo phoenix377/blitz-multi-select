@@ -1,12 +1,10 @@
-import Instructions from "./components/Instructions";
-import Select from "./components/Select";
 import { styled } from "goober";
+import Select from "./components/Select";
 
 function App() {
   return (
     <Wrapper>
       <Content>
-        <Instructions />
         <Select />
       </Content>
     </Wrapper>
