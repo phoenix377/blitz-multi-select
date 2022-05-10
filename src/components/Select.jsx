@@ -17,6 +17,14 @@ const Select = () => {
     ref.current?.focus();
   };
 
+  const onRemove = (index) =>
+    setSelectedOptions(selectedOptions.filter((_, i) => i !== index));
+
+  const onClear = () => {
+    setSelectedOptions([]);
+    ref.current?.focus();
+  };
+
   return (
     <Wrapper>
       <SelectControl>
@@ -25,6 +33,8 @@ const Select = () => {
           options={selectedOptions}
           value={inputValue}
           onChange={setInputValue}
+          onRemove={onRemove}
+          onClear={onClear}
         />
 
         {!!inputValue && (
