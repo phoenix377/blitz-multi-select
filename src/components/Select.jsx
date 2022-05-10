@@ -2,8 +2,8 @@ import { styled } from "goober";
 import React, { useRef, useState } from "react";
 
 import useGetColor from "../hooks/useGetColor";
-import {SelectInput} from "./SelectInput";
 import LoadingParser from "./LoadingParser";
+import { SelectInput } from "./SelectInput";
 
 const Select = () => {
   const ref = useRef();
@@ -15,7 +15,7 @@ const Select = () => {
     setInputValue('');
     setSelectedOptions([...selectedOptions, option]);
     ref.current?.focus();
-  }
+  };
 
   return (
     <Wrapper>
@@ -26,22 +26,29 @@ const Select = () => {
           value={inputValue}
           onChange={setInputValue}
         />
+
         {!!inputValue && (
           <OptionsWrapper>
             <LoadingParser isLoading={loading}>
               {data && !!data.length ? (
                 data
                   .filter(
-                    ({name}) => !selectedOptions.some((o) => o.name === name)
+                    ({ name }) => !selectedOptions.some(option => option.name === name)
                   )
-                  .map((option) => (
-                    <div key={Math.random()}>{option.name}</div>
+                  .map((option, index) => (
+                    <SelectorOption
+                      key={index}
+                      hex={option.hex}
+                      onClick={() => onSelect(option)}
+                    >
+                      {option.name}
+                    </SelectorOption>
                   ))
-              ): (
-                <div>No results</div>
+              ) : (
+                <p>No results</p>
               )}
             </LoadingParser>
-            </OptionsWrapper>
+          </OptionsWrapper>
         )}
       </SelectControl>
     </Wrapper>
@@ -66,11 +73,28 @@ const OptionsWrapper = styled("div")`
   display: flex;
   flex-direction: column;
   position: absolute;
+  top: var(--sp-18);
   justify-content: center;
   align-items: center;
-  top: var(--sp-7);
   width: 100%;
   background-color: var(--shade0);
+  min-height: var(--sp-10);
+`;
+
+export const Option = styled("button")`
+  display: flex;
+  height: var(--sp-9);
+  border-radius: var(--sp-1);
+  align-items: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: ${({ hex }) => hex};
+  align-items: center;
+`;
+
+const SelectorOption = styled(Option)`
+  width: 100%;
+  cursor: pointer;
 `;
 
 export default Select;

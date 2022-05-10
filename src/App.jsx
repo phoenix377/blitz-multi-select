@@ -26,6 +26,9 @@ const Wrapper = styled("div")`
   }
 `;
 
-const Content = styled("div")``;
+const Content = styled("div")`
+  display: flex;
+  width: 680px;
+`;
 
 export default App;
