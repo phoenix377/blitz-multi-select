@@ -50,12 +50,13 @@ const Select = () => {
                       key={index}
                       hex={option.hex}
                       onClick={() => onSelect(option)}
+                      className="type-button-text"
                     >
-                      {option.name}
+                      <p>{option.name}</p>
                     </SelectorOption>
                   ))
               ) : (
-                <p>No results</p>
+                <NoResult className="type-form--tab">No results</NoResult>
               )}
             </LoadingParser>
           </OptionsWrapper>
@@ -72,39 +73,48 @@ const Wrapper = styled("div")`
 `;
 
 const SelectControl = styled("div")`
+  position: relative;
   display: flex;
   flex-direction: column;
   max-width: 680px;
   width: 100%;
-  position: relative;
 `;
 
 const OptionsWrapper = styled("div")`
-  display: flex;
-  flex-direction: column;
   position: absolute;
   top: var(--sp-18);
+  width: 100%;
+  min-height: var(--sp-10);
+  padding: var(--sp-2);
+  gap: var(--sp-2);
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  background-color: var(--shade0);
-  min-height: var(--sp-10);
+  border-radius: var(--sp-2);
+  background-color: var(--shade0);  
 `;
 
 export const Option = styled("button")`
   display: flex;
   height: var(--sp-9);
+  padding: var(--sp-2) var(--sp-3);
   border-radius: var(--sp-1);
   align-items: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   background-color: ${({ hex }) => hex};
-  align-items: center;
 `;
 
 const SelectorOption = styled(Option)`
   width: 100%;
   cursor: pointer;
+`;
+
+const NoResult = styled("p")`
+  color: var(--shade2);
+  width: 100%;
+  text-align: center;
 `;
 
 export default Select;

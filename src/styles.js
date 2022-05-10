@@ -298,6 +298,7 @@ textarea {
 button {
   color: inherit;
   border: none;
+  cursor: pointer;
 }
 
 html {
