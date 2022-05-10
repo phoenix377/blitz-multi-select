@@ -1,4 +1,8 @@
+// import fuzzaldrin from "fuzzaldrin-plus";
+import debounce from "lodash/debounce";
 import { useEffect, useState } from "react";
+
+const DEBOUNCE_TIME=500;
 
 const mockData = [
   { name: "Red", hex: "#DB2D2D" },
@@ -13,7 +17,7 @@ const mockData = [
 // This function can be improved. for example, fuzzy search
 const mockDatabaseResponse = (query) => {
   return mockData.filter(({ name }) => {
-    return name.indexOf(query) !== -1;
+    return name.toLowerCase().indexOf(query) !== -1;
   });
 };
 
@@ -26,10 +30,20 @@ const queryPromise = (query) => {
   });
 };
 
+const searchFunc = (query, setData, setLoading) => {
+  queryPromise(query).then((response) => {
+    setData(response);
+    setLoading(false);
+  });
+};
+
+const debouncedSearch = debounce(searchFunc, DEBOUNCE_TIME);
+
 // This hook can be modified for cache, debounce, etc.
 const useGetColor = ({ query = "" }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const search = debouncedSearch;
 
   useEffect(() => {
     setLoading(true);
@@ -38,11 +52,8 @@ const useGetColor = ({ query = "" }) => {
       setLoading(false);
       return;
     }
-    queryPromise(query).then((response) => {
-      setData(response);
-      setLoading(false);
-    });
-  }, [query]);
+    search(query, setData, setLoading);
+  }, [query, search]);
 
   return {
     data,
